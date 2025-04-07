@@ -16,7 +16,7 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 @Controller('/managements')
 export class GatewayManagementController {
   constructor(private readonly rabbitmqService: RabbitMQService) {}
-  // BaseResponseDto<BaseJobData>
+
   @Get('queues/status')
   @ApiOperation({
     summary: 'onch queue status count 조회',

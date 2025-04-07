@@ -34,7 +34,7 @@ export class GatewayRegisterController {
     });
 
     return {
-      success: true,
+      status: 'success',
     };
   }
 }
