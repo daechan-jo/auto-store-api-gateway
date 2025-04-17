@@ -3,3 +3,4 @@ node_modules
 webpack-hmr.config.cjs
 dist
 .idea
+k8s

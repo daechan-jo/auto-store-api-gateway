@@ -9,8 +9,8 @@ import * as dotenv from 'dotenv';
 import { initializeTransactionalContext } from 'typeorm-transactional';
 
 import { AppModule } from './app.module';
-import { swaggerConfig } from './config/swagger.config';
 import { AppConfig } from './config/app.config';
+import { swaggerConfig } from './config/swagger.config';
 
 dotenv.config({
   path: '/Users/daechanjo/codes/project/auto-store/.env',
@@ -45,7 +45,6 @@ async function bootstrap() {
       transformOptions: {
         enableImplicitConversion: true,
       },
-      // 유효성 검사 전에 원시 값을 유지
       validateCustomDecorators: false,
       skipMissingProperties: true,
       whitelist: true,
