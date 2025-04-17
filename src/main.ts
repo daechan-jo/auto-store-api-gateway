@@ -12,9 +12,15 @@ import { AppModule } from './app.module';
 import { AppConfig } from './config/app.config';
 import { swaggerConfig } from './config/swagger.config';
 
-dotenv.config({
-  path: '/Users/daechanjo/codes/project/auto-store/.env',
-});
+const isDev = process.env.NODE_ENV !== 'PROD';
+
+if (isDev) {
+  dotenv.config({
+    path: '/Users/daechanjo/codes/project/auto-store/.env',
+  });
+} else {
+  dotenv.config();
+}
 
 async function bootstrap() {
   const appConfig = AppConfig.getInstance();
