@@ -16,9 +16,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
-# .env 파일이 필요한데, 코드에서 절대 경로를 사용 중이므로 수정 필요
-# 일단 .env 파일은 ConfigMap으로 관리할 예정
-# COPY .env .env
+ENV NODE_ENV=PROD
 
 EXPOSE 9000
 CMD ["node", "dist/main.js"]
