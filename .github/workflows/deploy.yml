@@ -7,7 +7,6 @@ on:
       - 'src/**'
       - 'package*.json'
       - 'Dockerfile'
-      - 'k8s/**'
       - '.github/workflows/deploy.yml'
 
 jobs:
@@ -18,11 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Docker image
+      - name: Build and Push Docker image
         run: |
-          docker build -t api-gateway:latest .
+          docker build -t myregistry.com/api-gateway:latest .
+          docker push myregistry.com/api-gateway:latest
 
-      - name: Deploy to Kubernetes
+      - name: Update deployment to use registry
         run: |
-          kubectl set image deployment/api-gateway api-gateway=api-gateway:latest
+          kubectl patch deployment api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","image":"myregistry.com/api-gateway:latest","imagePullPolicy":"Always"}]}}}}'
           kubectl rollout status deployment/api-gateway
