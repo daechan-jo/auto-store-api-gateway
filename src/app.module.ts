@@ -11,7 +11,10 @@ import { GatewayRegisterController } from './api/gateway.register.controller';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '/Users/daechanjo/codes/project/auto-store/.env',
+      envFilePath:
+        process.env.NODE_ENV === 'PROD'
+          ? '/app/.env'
+          : '/Users/daechanjo/codes/project/auto-store/.env',
     }),
     UtilModule,
     PlaywrightModule,
