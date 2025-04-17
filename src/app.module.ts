@@ -11,11 +11,10 @@ import { GatewayRegisterController } from './api/gateway.register.controller';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      ignoreEnvFile: process.env.NODE_ENV === 'PROD',
       envFilePath:
         process.env.NODE_ENV !== 'PROD'
           ? '/Users/daechanjo/codes/project/auto-store/.env'
-          : undefined,
+          : '/app/.env',
     }),
     UtilModule,
     PlaywrightModule,
