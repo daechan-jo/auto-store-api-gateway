@@ -24,10 +24,5 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/configmap.yaml
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
-          kubectl apply -f k8s/ingress.yaml
-          
-          # 배포 확인 및 롤아웃 상태 체크
+          kubectl set image deployment/api-gateway api-gateway=api-gateway:latest
           kubectl rollout status deployment/api-gateway
