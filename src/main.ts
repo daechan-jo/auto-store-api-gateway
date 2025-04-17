@@ -18,8 +18,6 @@ if (isDev) {
   dotenv.config({
     path: '/Users/daechanjo/codes/project/auto-store/.env',
   });
-} else {
-  dotenv.config();
 }
 
 async function bootstrap() {
