@@ -17,12 +17,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build and Push Docker image
+      - name: Build Docker image
         run: |
-          docker build -t myregistry.com/api-gateway:latest .
-          docker push myregistry.com/api-gateway:latest
+          # 고유한 태그 사용 (최신 커밋 해시)
+          docker build -t api-gateway:${{ github.sha }} .
 
-      - name: Update deployment to use registry
+      - name: Update Kubernetes deployment
         run: |
-          kubectl patch deployment api-gateway -p '{"spec":{"template":{"spec":{"containers":[{"name":"api-gateway","image":"myregistry.com/api-gateway:latest","imagePullPolicy":"Always"}]}}}}'
-          kubectl rollout status deployment/api-gateway
+          # 새 이미지로 디플로이먼트 업데이트
+          kubectl set image deployment/api-gateway api-gateway=api-gateway:${{ github.sha }}
+          
+          # 롤링 업데이트 전략 수정 (1개의 레플리카로도 업데이트가 가능하게)
+          kubectl patch deployment api-gateway -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge":1,"maxUnavailable":0}}}}'
+          
+          # 디플로이먼트 상태 확인 (타임아웃 설정)
+          kubectl rollout status deployment/api-gateway --timeout=180s
