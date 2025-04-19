@@ -13,13 +13,12 @@ import { AppConfig } from './config/app.config';
 import { swaggerConfig } from './config/swagger.config';
 
 const isDev = process.env.NODE_ENV !== 'PROD';
-
 if (isDev) {
   dotenv.config({
     path: '/Users/daechanjo/codes/project/auto-store/.env',
   });
 } else {
-  dotenv.config();
+  dotenv.config({ path: '/app/.env' });
 }
 
 async function bootstrap() {
